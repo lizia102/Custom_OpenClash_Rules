@@ -203,7 +203,7 @@ https://api.asailor.org/sub
 
 - 工单支持简体中文沟通且客服反应迅速
 
-注册链接：[SSRDOG 注册](https://st1.hosbb.com/#/register?code=FnSb4oWM)  (链接包含 aff 信息，感谢支持！)
+注册链接：[SSRDOG 注册](https://st1.hosbb.com)  (链接不包含 aff 信息，感谢支持！)
 
 本项目订阅模板的节点地区分类即参考了该机场的节点地区进行分类。  
 
