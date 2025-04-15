@@ -192,10 +192,19 @@ if [ "$adv_choice" = "y" ] || [ "$github_choice" = "y" ]; then
 "
                 ;;
             4)
-                NEW_INSERT_CONTENT="${NEW_INSERT_CONTENT}
-    LOG_OUT \"[广告过滤规则拉取脚本] 拉取最新的 秋风广告规则...\"
-    curl -sSL -4 --retry 10 --retry-delay 2 https://github.boki.moe/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-hosts.txt | \\
-    sed '/127.0.0.1 localhost/d; /::1 localhost/d; 1s/^/# AWAvenue-Ads-Rule Start\\n/; \$s/\$/\\n# AWAvenue-Ads-Rule End/' >> /etc/hosts
+                    NEW_INSERT_CONTENT="${NEW_INSERT_CONTENT}
+    LOG_OUT \"[广告过滤规则拉取脚本] 拉取最新的 AWAvenue-Ads-Rule 广告过滤规则，规则体积较大，请耐心等候…\"
+    curl -sS -4 -L --retry 10 --retry-delay 2 \\
+        \"https://gh-proxy.com/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Dnsmasq.conf\" \\
+        -o \"\$TARGET_DIR/AWAvenue-Ads-Rule-Dnsmasq.conf\" >/dev/null 2>/tmp/AWAvenue-Ads-curl.log
+    CURL_EXIT=\$?
+
+    if [ \$CURL_EXIT -eq 0 ]; then
+        LOG_OUT \"[广告过滤规则拉取脚本] AWAvenue-Ads-Rule 规则拉取成功！保存路径：\${TARGET_DIR}/AWAvenue-Ads-Rule-Dnsmasq.conf\"
+    else
+        LOG_OUT \"[广告过滤规则拉取脚本] AWAvenue-Ads-Rule 规则拉取失败 (错误码:\$CURL_EXIT)，查看 /tmp/AWAvenue-Ads-curl.log 获取详细信息。\"
+        echo \"CURL Exit Code: \$CURL_EXIT\" >> /tmp/AWAvenue-Ads-curl.log
+    fi
 "
                 ;;
         esac
